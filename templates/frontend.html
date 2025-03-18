@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentiment Analysis</title>
+    <style>body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background-color: #f8f9fa;
+    }
+    
+    h1 {
+        color: #007bff;
+    }
+    
+    form {
+        margin: 20px;
+    }
+    
+    table {
+        width: 60%;
+        margin: 20px auto;
+        border-collapse: collapse;
+    }
+    
+    th, td {
+        padding: 10px;
+        border: 1px solid #ddd;
+    }
+    
+    th {
+        background-color: #007bff;
+        color: white;
+    }
+    
+    button {
+        background-color: #28a745;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        cursor: pointer;
+    }
+    
+    button:hover {
+        background-color: #218838;
+    }
+    </style>
+</head>
+<body>
+    <h1>Upload a File for Sentiment Analysis</h1>
+    
+    <form action="/predict" method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" required>
+        <button type="submit">Upload & Predict</button>
+    </form>
+
+    {% if predictions %}
+        <h2>Prediction Results</h2>
+        <table border="1">
+            <tr>
+                <th>Comment</th>
+                <th>Predicted Sentiment</th>
+            </tr>
+            {% for comment, sentiment in predictions %}
+                <tr>
+                    <td>{{ comment }}</td>
+                    <td>{{ sentiment }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+
+        <h2>Sentiment Distribution</h2>
+        <img src="data:image/png;base64,{{ pie_chart }}" alt="Pie Chart">
+    {% endif %}
+</body>
+</html>
+
+    
